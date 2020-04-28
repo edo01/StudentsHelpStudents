@@ -4,24 +4,44 @@
 -->
 <?php 
     session_start();
-
     include 'model/dbHandler.php';
-
-    if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true) {
+    include 'local.php';
+    $dbhandler = new DbHandler();
+   /*if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true) {
     	header("location: index.php");
+    }*/
+    
+    
+    
+    if($_POST["submit"] = "registrati"){
+        if(isset($_POST["username"]) && isset($_POST["name"]) &&
+            isset($_POST["surname"]) && isset($_POST["email"]) &&
+            isset($_POST["password"]) && isset($_POST["class"])){
+            
+            if($dbhandler->insertNewUser($_POST["name"], $_POST["surname"], 
+            $_POST["username"], $_POST["email"], $_POST["class"],
+                    $_POST["password"])){
+                $_SESSION["logged_in"] = true;    
+                $_SESSION["username"] = $_POST["username"];
+                header("location: index.php");
+                
+            }
+        }
+    }
+    if (isset($_POST["usernamel"]) && isset($_POST["passwordl"])){
+        
+        //check from db is required here
+        if($dbhandler->login($_POST["usernamel"], $_POST["passwordl"])){
+            $_SESSION["logged_in"] = true;    
+            $_SESSION["username"] = $_POST["usernamel"];
+            header("location: index.php");
+        }
+        else{
+            //do something for telling to the user that the password or the user is incorrect
+        }
     }
 
-    if (isset($_POST["username"]) && isset($_POST["password"])){
-    	//check from db is required here
-	    if(login($_POST["username"], $_POST["password"])){
-		$_SESSION["logged_in"] = true;    
-		$_SESSION["username"] = $_POST["username"];
-	    	header("location: index.php");
-	    }
-	    else{
-	    	//do something for telling to the user that the password or the user is incorrect
-	    }
-    }
+   
 ?>
 <html>
     <head>
@@ -35,27 +55,11 @@
                 align-content: center;
             }
         </style>
+        <script type="text/javascript" src="js/ajaxFunctions.js"></script>
     </head>
-    <body>
-        <div>
-<?php if(!is_logged() || empty($_POST["username"]) || empty($_POST["password"])){?>
-            <h1>BENVENUTO</h1>
-	    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="POST">
-                <h4>username:</h4>
-                <input type="text" name="username" value="<?php if(!empty($_POST["username"]))echo $_POST["username"];?>">
-	<?php if(is_valid("username")):?>
-                <h2 class="error">è necessario inserire l'username</h2>
-        <?php endif;?>
-                <br>
-                <h4>password:</h4>
-                <input type="password" name="password">
-        <?php if(is_valid("password")): ?>
-                <h2 class="error">è necessario inserire la password</h2>
-        <?php endif;?>
-                <br>
-                <input type="submit" value="login"><h3> oppure </h3> <a href="signup.html">registrati</a>            
-            </form>
-<?php }?>
-        </div>
+    <body onload="loadLogin()">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="POST">
+            <div id="content"></div>
+        </form>
     </body>
 </html>
