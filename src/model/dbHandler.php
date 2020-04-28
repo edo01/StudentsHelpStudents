@@ -88,8 +88,24 @@ class DbHandler{
         DbHandler::close($mysqli);
         if(password_verify($password, $hash[0])){
             return true;
+        }else{ return false;}
+    }
+    
+    function usersExists($field, $value){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT username FROM Users WHERE $field = '$value'";
+        $result = $mysqli->query($insertion);
+	$n = $result->num_rows;
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command");
+	}
+        DbHandler::close($mysqli);
+        if($n>0){
+            return true;
         }else return false;
     }
+    
 }
 ?>
 

@@ -11,7 +11,7 @@
     	header("location: index.php");
     }*/
     
-    
+    $error = "";
     
     if($_POST["submit"] = "registrati"){
         if(isset($_POST["username"]) && isset($_POST["name"]) &&
@@ -38,6 +38,7 @@
         }
         else{
             //do something for telling to the user that the password or the user is incorrect
+            $error = "l'username e la password sono scorretti";    
         }
     }
 
@@ -47,17 +48,11 @@
     <head>
         <meta charset="UTF-8">
 	<title>login</title>
-	<style>
-            .error {
-                color : red;
-            }
-            div {
-                align-content: center;
-            }
-        </style>
+	<style></style>
         <script type="text/javascript" src="js/ajaxFunctions.js"></script>
     </head>
     <body onload="loadLogin()">
+        <span><?php echo $error?></span>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="POST">
             <div id="content"></div>
         </form>

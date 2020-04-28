@@ -4,7 +4,9 @@
     - check the class -->
 
 <h4>username:</h4>
-<input type="text" name="username" required>
+<input type="text" name="username" 
+       oninput="check_field('username', this)" required>
+<span id="checker_username" style="visibility:hidden;" > username già in uso </span>
 <br>
 <h4>password:</h4>
 <input type="password" name="password" required>
@@ -25,6 +27,6 @@
 
 <br>
 <h4>email istituzionale:</h4>
-<input type="text" name="email" required>
+<input type="text" name="email" oninput="check_field('email')" required>
 <br>
 <input type="submit" name="submit" value="registrati"> oppure <a onclick="loadLogin()">accedi</a>  
