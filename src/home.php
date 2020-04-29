@@ -1,72 +1,45 @@
 <!DOCTYPE html>
-<!--
-	login.php
--->
-<?php 
-    session_start();
-    include 'model/dbHandler.php';
-    include 'local.php';
-    
-    $dbhandler = new DbHandler();
-    //uncomment this!!
-    /*if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true) {
-    	header("location: index.php");
-    }*/
-    $page = "loadLogin()";
-    $error = "";
-    if($_POST["submit"] = "registrati"){
-        if(!$dbhandler->usersExists("username",isset($_POST["username"])) || 
-            !$dbhandler->usersExists("email",isset($_POST["email"]))){
-            if(isset($_POST["username"]) && isset($_POST["name"]) &&
-                isset($_POST["surname"]) && isset($_POST["email"]) &&
-                isset($_POST["password"]) && isset($_POST["class"])){
-                if($_POST["password"] == $_POST["password2"]){
-                    if($dbhandler->insertNewUser($_POST["name"], $_POST["surname"], 
-                    $_POST["username"], $_POST["email"], $_POST["class"],
-                            $_POST["password"])){
-                        $_SESSION["logged_in"] = true;    
-                        $_SESSION["username"] = $_POST["username"];
-                        header("location: index.php");
-                    }   
-                }else{
-                    $page = "loadSignup()";
-                    $error = "Le password devono essere identiche";
-                }
-            }
-        }else{
-            //da migliorare       
-            $page = "loadSignup()";
-            $error = "utente già registrato nel sito";   
-        }
-    }
-    if (isset($_POST["usernamel"]) && isset($_POST["passwordl"])){
-        
-        //check from db is required here
-        if($dbhandler->login($_POST["usernamel"], $_POST["passwordl"])){
-            $_SESSION["logged_in"] = true;    
-            $_SESSION["username"] = $_POST["usernamel"];
-            header("location: index.php");
-        }
-        else{
-            //do something for telling to the user that the password or the user is incorrect
-            $error = "l'username e la password sono errati";   
-            $page = "loadLogin()";
-        }
-    }
+<html lang="en">
 
-   
-?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-	<title>login</title>
-	<style></style>
-        <script type="text/javascript" src="js/ajaxFunctions.js"></script>
-    </head>
-    <body onload="<?php echo $page;?>">
-        <span><?php echo $error?></span>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="POST">
-            <div id="content"></div>
-        </form>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>progetto sito cava</title>
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/tooplate.css">
+</head>
+
+<body id="home">
+    <div class="container tm-home-mt tm-home-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tm-home-left">
+                    <h1 class="tm-site-title">STUDENTS HELP STUDENTS</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="tm-home-left mt-3 font-weight-light">
+                    <p class="tm-mb-35">La piattaforma degli studenti dell'I.I.S. Belluzzi-Fioravanti</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <ul class="list-group tm-home-list tm-bg-black font-weight-light">
+                    <li class="d-flex justify-content-between align-items-center">
+                        <a href="access.php?page=login" class="tm-white-text">Accedi</a>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center">
+                        <a href="access.php?page=signup" class="tm-white-text">Registrati</a>
+                    </li>  
+                </ul>
+            </div>
+        </div>
+    </div>
+ </body>
+
 </html>

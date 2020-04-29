@@ -31,9 +31,8 @@ class DbHandler{
 	$password = password_hash($password, PASSWORD_DEFAULT);
         $insertion = "INSERT INTO Users(username, name, surname, email, class, password)"
                 . " VALUES ('$username', '$name', '$surname', '$email','$class', '$password')";
-        echo $insertion;
         if(!$mysqli->query($insertion)){
-            print("Error: impossible adding new user:".$mysqli->error);
+            //print("Error: impossible adding new user:".$mysqli->error);
             return false;
         }
         DbHandler::close($mysqli);

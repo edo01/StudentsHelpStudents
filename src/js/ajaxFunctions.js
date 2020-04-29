@@ -1,19 +1,31 @@
 var xhttp = new XMLHttpRequest();
 
-function loadLogin(){
+function loadLogin(error){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("content").innerHTML = this.responseText;
+            document.getElementsByTagName("body")[0].innerHTML = this.responseText;
+            if(error){
+                document.getElementById("error").style.visibility = "visible";
+            }
         }
     };
     xhttp.open("GET","login_content.php", true);
     xhttp.send();
 }
 
-function loadSignup(){
+function loadSignup(error, type){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("content").innerHTML = this.responseText;
+            document.getElementsByTagName("body")[0].innerHTML = this.responseText;
+            if(error){
+                if(type=="email"){
+                    document.getElementById("checker_email").style.visibility = "visible";
+                }else if(type=="password"){
+                    document.getElementById("password_error").style.visibility = "visible";
+                }else{
+                    document.getElementById("checker_username").style.visibility = "visible";
+                }
+            }
         }
     };
     xhttp.open("GET","signup_content.php", true);
@@ -23,20 +35,18 @@ function loadSignup(){
 //not so much dynamic
 function check_field(field, value){
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            response = this.responseText.replace(/^\s*/,'').replace(/\s*$/,'').toLowerCase();
-            if(response == 'true'){
-                if(field == 'email'){
-                    document.getElementById("checker_email").style.visibility = "visible";
-                }else{
-                    document.getElementById("checker_username").style.visibility = "visible";    
-                }
+        response = this.responseText.replace(/^\s*/,'').replace(/\s*$/,'').toLowerCase();
+        if(response == 'true'){
+            if(field == 'email'){
+                document.getElementById("checker_email").style.visibility = "visible";
             }else{
-                if(field == 'email'){
-                    document.getElementById("checker_email").style.visibility = "hidden";
-                }else{
-                    document.getElementById("checker_username").style.visibility = "hidden";    
-                }
+                document.getElementById("checker_username").style.visibility = "visible";    
+            }
+        }else{
+            if(field == 'email'){
+                document.getElementById("checker_email").style.visibility = "hidden";
+            }else{
+                document.getElementById("checker_username").style.visibility = "hidden";    
             }
         }
     };
