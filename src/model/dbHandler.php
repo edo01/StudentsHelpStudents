@@ -13,13 +13,8 @@ class DbHandler{
     
     
     function connect(){
-        
-        /*$username = strval($GLOBALS["local_username"]);
-        $password = strval($GLOBALS["local_password"]);
-        $database = strval($GLOBALS["local_database"]);
-        $host = strval($GLOBALS["local_host"]);
-        $mysqli = new msqli($host, $username, $password, $database);*/
-        $mysqli = new mysqli("localhost:3306","ShS","ShS_password","ShS");
+        $mysqli = new mysqli($GLOBALS["local_host"],$GLOBALS["local_username"],
+                $GLOBALS["local_password"],$GLOBALS["local_database"]);
         if($mysqli->connect_error){  
             print("Connection error:" . $mysqli->connect_error);
             return;
@@ -103,10 +98,24 @@ class DbHandler{
         DbHandler::close($mysqli);
         if($n>0){
             return true;
-        }else return false;
+        }else{ return false;}
     }
     
+    function getUser($username){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT name,surname,email,class FROM Users WHERE username = '$username'";
+        
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$user = $result->fetch_assoc();
+        if($result->num_rows>1){
+            //attenzione duplicato
+            //return "errore";
+        }
+        return $user;
+    }
 }
-?>
-
-

@@ -4,6 +4,4 @@
 <h4>password:</h4>
 <input type="password" name="passwordl" required>
 <br>
-<input type="submit" name="submit" value="login"><h3> oppure </h3> <a onclick="loadSignup()">registrati</a>            
-
-
+<input type="submit" name="submit" value="login"><h3> oppure </h3> <a onclick="loadSignup()">registrati</a>      

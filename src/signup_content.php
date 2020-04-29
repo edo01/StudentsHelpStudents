@@ -27,6 +27,7 @@
 
 <br>
 <h4>email istituzionale:</h4>
-<input type="text" name="email" oninput="check_field('email')" required>
+<input type="text" name="email" oninput="check_field('email', this)" required>
+<span id="checker_email" style="visibility:hidden;" > email già in uso </span>
 <br>
 <input type="submit" name="submit" value="registrati"> oppure <a onclick="loadLogin()">accedi</a>  
