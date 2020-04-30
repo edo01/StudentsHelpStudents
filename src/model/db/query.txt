@@ -1,0 +1,4 @@
+Selezionare:
+1. La password dell'utente 
+2. Username che sono in utilizzo
+3. Nome, cognome, email e classe di tutti gli utenti
