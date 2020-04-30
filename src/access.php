@@ -9,9 +9,9 @@
     
     $dbhandler = new DbHandler();
     //uncomment this!!
-    /*if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true) {
+    if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true && $_GET["page"]=="login") {
     	header("location: index.php");
-    }*/
+    }
     if(isset($_GET["page"])){
         if($_GET["page"]=="login"){
             $page_function = "loadLogin(false)";

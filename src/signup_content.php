@@ -47,7 +47,7 @@
     </div>
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ml-auto mr-0 text-center">
-            <a onclick="loadLogin(false)" class="waves-effect btn-large btn-large-white px-4 black-text rounded-0">Accedi</a>
+            <a onclick="loadLogin(false)" class="waves-effect btn-large btn-large-white px-4 black-text rounded-0">Sei già registrato?</a>
         </div>
     </div>
     <footer class="row tm-mt-big mb-3">

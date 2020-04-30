@@ -3,7 +3,8 @@ var xhttp = new XMLHttpRequest();
 function loadLogin(error){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementsByTagName("body")[0].innerHTML = this.responseText;
+            document.body.innerHTML = this.responseText;
+            //history.pushState(null,null,"access.php?page=login");
             if(error){
                 document.getElementById("error").style.visibility = "visible";
             }
@@ -11,12 +12,14 @@ function loadLogin(error){
     };
     xhttp.open("GET","login_content.php", true);
     xhttp.send();
+
 }
 
 function loadSignup(error, type){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementsByTagName("body")[0].innerHTML = this.responseText;
+            document.body.innerHTML = this.responseText;
+            //history.pushState(null,null,"access.php?page=signup");
             if(error){
                 if(type=="email"){
                     document.getElementById("checker_email").style.visibility = "visible";
@@ -55,16 +58,34 @@ function check_field(field, value){
     xhttp.send();
 }
 
-function loadMyProfile(username){
-    xhttp.overrideMimeType("text/xml");
+function loadMyProfile(){
+    xhttp.open("GET","profile.php?", true);
+    //xhttp.overrideMimeType("text/xml");
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-               var userData = this.responseXML;
-                //alert(this.responseText);
-                console.log(userData.getElementsByTagName("name")[0].childNodes[0].nodeValue);
-                //document.getElementById("page").innerHTML = this.responseText;
+                document.getElementById("page").innerHTML = this.responseText;
         }
     }
-    xhttp.open("GET","Profile.php?username="+username, true);
+    xhttp.send();
+}
+
+function loadExplore(){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("page").innerHTML = this.responseText;
+            loadQuestions('Lingua e letteratura italiana','5°');
+        }
+    };
+    xhttp.open("GET","explore.php", true);
+    xhttp.send();
+}
+
+function loadQuestions(matter,sect){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("questions_box").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET","questions.php?matter="+ matter +"&sect="+sect, true);
     xhttp.send();
 }

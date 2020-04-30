@@ -15,6 +15,7 @@ class DbHandler{
     function connect(){
         $mysqli = new mysqli($GLOBALS["local_host"],$GLOBALS["local_username"],
                 $GLOBALS["local_password"],$GLOBALS["local_database"]);
+        $mysqli->set_charset("utf8");
         if($mysqli->connect_error){  
             print("Connection error:" . $mysqli->connect_error);
             return;
@@ -39,7 +40,10 @@ class DbHandler{
         return true;
     }
 
-    function insertQuestion($title, $description, $matter, $section, $username, $ID_answer){
+    /*
+     * not updated
+     */
+    function insertQuestion($title, $description, $matter, $section, $username,$date_time, $ID_answer){
         $mysqli = DbHandler::connect();
         $insertion = "INSERT INTO Questions(title, description, matter, section, username, ID_answer)"
                 . " VALUES ('$title', '$description', '$matter', '$section', '$username', '$ID_answer')";
@@ -49,6 +53,9 @@ class DbHandler{
         DbHandler::close($mysqli);
     }
 
+    /*
+     * not updated
+     */
     function insertAnswer( $description, $ID_question, $username){
         $mysqli = DbHandler::connect();
         $insertion = "INSERT INTO Answers( description, ID_question,username)"
@@ -117,4 +124,73 @@ class DbHandler{
         }
         return $user;
     }
+    
+    function getAllSections(){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT sect FROM Matters GROUP BY sect";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$sections = $result->fetch_all(MYSQLI_NUM);
+        return $sections;
+    }
+    
+    function getMattersFromSection($section){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT name FROM Matters WHERE sect='$section'";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$matters = $result->fetch_all(MYSQLI_NUM);
+        return $matters;
+    }
+    
+    function getQuestionsFromMatter($matter,$sect){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT title,description,date_time FROM "
+                . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$questions = $result->fetch_all(MYSQLI_NUM);
+        return $questions;
+    }
+    
+    function getRightAnswersOfUser($username){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT count(ID_answer) as right_answers FROM "
+                . "Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$n = $result->fetch_assoc();
+        return $n["right_answers"];
+    }
+    
+    function getAnswersFromQuestion($ID_question){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT description,correct,date_time FROM "
+                . "Answers AS a INNER JOIN Questions AS q ON a.ID_question = '$ID_question'";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossibile executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$answers = $result->fetch_all(MYSQLI_NUM);
+        return $answers;
+    }
+    
 }

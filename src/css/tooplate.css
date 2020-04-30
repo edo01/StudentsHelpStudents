@@ -109,20 +109,27 @@ ul.tm-home-list:not(.browser-default) {
   background-position: center top;
 }
 
-#survey {
+#profile {
   background-image: url(../img/input-bg-06.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center top ;
+}
+
+#explore {
+  background-image: url(../img/explore.jpg);
+  background-size: 100% 100%;
+  background-repeat: repeat-x;
+  background-attachment: fixed;
   background-position: center top;
+  background-color: white;
 }
 
 #register {
-  padding-top: 180px;
   background-image: url(../img/input-bg-01.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 30%;
-  color: black;
+  background-position: center;
 }
 
 #application {
@@ -134,7 +141,7 @@ ul.tm-home-list:not(.browser-default) {
 }
 
 #login {
-  background-image: url(../img/input-bg-04.jpg);
+  background-image: url(../img/input-bg-01.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

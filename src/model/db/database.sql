@@ -50,4 +50,7 @@ INSERT INTO Matters(name, sect) VALUES ("Matematica","5°"),("Lingua e letteratu
 ("Religione cattolica o attività alternative","5°"),
 ("Tecnologie e progettazione di sistemi informatici e di telecomunicazioni","5° informatica"),
 ("Gestione progetto, organizzazione d'impresa","5° informatica");
+
+INSERT INTO Questions(title,description,username,name,sect,date_time) VALUES 
+("TEST","descrizione del test. descrizione di esempio","bel24623","Lingua e letteratura italiana","5°",NOW());
   
