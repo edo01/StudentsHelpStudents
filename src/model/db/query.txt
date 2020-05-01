@@ -2,3 +2,8 @@ Selezionare:
 1. La password dell'utente 
 2. Username che sono in utilizzo
 3. Nome, cognome, email e classe di tutti gli utenti
+4. Sezioni che ci sono per ogni materia
+5. Nome di tutte le sezioni
+6. Titolo, descrizione, data della domanda per ogni materia
+7. Il numero degli utenti che hanno risposto correttamente alla domanda
+8. Descrizione, data e risultato della risposta delle risposte alla domanda
