@@ -58,8 +58,8 @@ class DbHandler{
      */
     function insertAnswer( $description, $ID_question, $username){
         $mysqli = DbHandler::connect();
-        $insertion = "INSERT INTO Answers( description, ID_question,username)"
-                . " VALUES ('$description', '$ID_question', '$username')";
+        $insertion = "INSERT INTO Answers( description, correct, ID_question, username, date_time)"
+                . " VALUES ('$description', false, '$ID_question', '$username', NOW())";
         if(!$mysqli->query($insertion)){
             print("Error: impossible adding new answer");
         }
@@ -154,11 +154,11 @@ class DbHandler{
     function getQuestionsFromMatter($matter,$sect){
         $mysqli = DbHandler::connect();
         //hashing the password in order to don't be hacked
-        $insertion = "SELECT title,description,date_time FROM "
+        $insertion = "SELECT title,description,date_time,ID_question FROM "
                 . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC";
         $result = $mysqli->query($insertion);
         if(!$mysqli->query($insertion)){
-            print("Error: impossibile executing this command:".$mysqli->error);
+            print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
 	$questions = $result->fetch_all(MYSQLI_NUM);
@@ -172,7 +172,7 @@ class DbHandler{
                 . "Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true";
         $result = $mysqli->query($insertion);
         if(!$mysqli->query($insertion)){
-            print("Error: impossibile executing this command:".$mysqli->error);
+            print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
 	$n = $result->fetch_assoc();
@@ -182,15 +182,43 @@ class DbHandler{
     function getAnswersFromQuestion($ID_question){
         $mysqli = DbHandler::connect();
         //hashing the password in order to don't be hacked
-        $insertion = "SELECT description,correct,date_time FROM "
-                . "Answers AS a INNER JOIN Questions AS q ON a.ID_question = '$ID_question'";
+        $insertion = "SELECT a.description,correct,a.date_time FROM "
+                . "Answers AS a INNER JOIN Questions AS q ON a.ID_question = q.ID_question "
+                . "WHERE a.ID_question = '$ID_question' ORDER BY a.date_time DESC";
         $result = $mysqli->query($insertion);
         if(!$mysqli->query($insertion)){
-            print("Error: impossibile executing this command:".$mysqli->error);
+            print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
 	$answers = $result->fetch_all(MYSQLI_NUM);
         return $answers;
     }
     
+    function getQuestionsStartingWith($matter,$sect,$alias){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT title,description,date_time,ID_question FROM "
+                . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' AND q.title LIKE '%$alias%' ORDER BY date_time DESC";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossible executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$questions = $result->fetch_all(MYSQLI_NUM);
+        return $questions;
+    }
+    
+    function getQuestionsById($id){
+        $mysqli = DbHandler::connect();
+        //hashing the password in order to don't be hacked
+        $insertion = "SELECT title,description,date_time FROM "
+                . "Questions AS q WHERE q.ID_question = '$id'";
+        $result = $mysqli->query($insertion);
+        if(!$mysqli->query($insertion)){
+            print("Error: impossible executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
+	$question = $result->fetch_assoc();
+        return $question;
+    }
 }

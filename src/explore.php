@@ -369,6 +369,11 @@
         color: white;
     }
 
+    #src-bar-exp{
+        background-color: rgba(30, 144, 255, 0.9);
+        width: 30%;
+    }
+    
     /* lo sfondo oscurante della pagina  
     * in questo caso ellementi vengono blocati */
 
@@ -393,8 +398,7 @@
     transition: opacity .5s, visibility .5s;
     }
     */
-</style>
-
+</style>    
 <input type="checkbox" id="nav-toggle" hidden>
 <nav class="nav">
     <label for="nav-toggle" class="nav-toggle" onclick></label>
@@ -417,5 +421,11 @@
         ?>
     </ul>
 </nav>
-<div id="questions_box"></div>
-    
+<div class="container">
+    <div class="search_bar input-field" id="src-bar-exp" style="text-align:center;margin-top:10px;">
+        <input type="text" oninput="searchQuestions(this)" style="padding:5px;width:80%; color: white;" placeholder="Cerca..">
+    </div>
+    <div id="questions_box">
+
+    </div>
+</div>

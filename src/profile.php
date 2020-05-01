@@ -10,7 +10,6 @@
     $email = $user["email"];
     $class = $user["class"];
 ?>
-
 <div class="font-weight-light">
     <div class="container tm-container-max-800" >
         <div class="row">

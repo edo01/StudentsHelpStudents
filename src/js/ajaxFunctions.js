@@ -1,4 +1,6 @@
 var xhttp = new XMLHttpRequest();
+var actual_sect;
+var actual_matter;
 
 function loadLogin(error){
     xhttp.onreadystatechange = function() {
@@ -61,7 +63,7 @@ function check_field(field, value){
 }
 
 function loadMyProfile(){
-    xhttp.open("GET","profile.php?", true);
+    xhttp.open("GET","profile.php", true);
     //xhttp.overrideMimeType("text/xml");
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -85,10 +87,12 @@ function loadExplore(){
 }
 
 function loadQuestions(matter,sect){
+    actual_sect = sect;
+    actual_matter = matter;
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("questions_box").innerHTML = this.responseText;
-            
+            document.getElementById("src-bar-exp").style.display = "block";
         }
     };
     xhttp.open("GET","questions.php?matter="+ matter +"&sect="+sect, true);
@@ -96,5 +100,48 @@ function loadQuestions(matter,sect){
 }
 
 function loadQuestion(id){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("questions_box").innerHTML = this.responseText;
+            document.getElementById("src-bar-exp").style.display = "none";
+            document.getElementById("answer-btn").style.display = "block";
+        }
+    };
+    xhttp.open("GET","question.php?id="+ id, true);
+    xhttp.send();
     
+}
+
+function searchQuestions(search){
+    search = search.value;
+    console.log(search);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("questions_box").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET","questions.php?matter="+ actual_matter +"&sect="+actual_sect+"&search="+search, true);
+    xhttp.send();
+}
+
+function loadClassification(){
+    xhttp.open("GET","classification.php", true);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("page").innerHTML = this.responseText;
+                document.body.id = "classification";
+        }
+    }
+    xhttp.send();
+}
+
+function loadAnswerForm(id){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("answer_panel").innerHTML = this.responseText;
+            document.getElementById("answer-btn").style.display = "none";
+        }
+    };
+    xhttp.open("GET","answerForm.php?id="+ id, true);
+    xhttp.send();
 }

@@ -14,25 +14,25 @@ CREATE TABLE Matters(
 );
 
 CREATE TABLE Questions(
-	ID_Question INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	title VARCHAR(255) NOT NULL,
-	description MEDIUMTEXT ,
-	username VARCHAR(50) NOT NULL,
-        name VARCHAR(50) NOT NULL,
-        sect VARCHAR(50) NOT NULL,
-	date_time DATETIME NOT NULL,
-        FOREIGN KEY(name,sect) REFERENCES Matters(name,sect),
-	FOREIGN KEY(username) REFERENCES Users(username)
+    ID_Question INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description MEDIUMTEXT ,
+    username VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    sect VARCHAR(50) NOT NULL,
+    date_time DATETIME NOT NULL,
+    FOREIGN KEY(name,sect) REFERENCES Matters(name,sect),
+    FOREIGN KEY(username) REFERENCES Users(username)
 );
 CREATE TABLE Answers(
-	ID_Answer INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	description MEDIUMTEXT NOT NULL,
-	correct BOOLEAN NOT NULL,
-	ID_Question INTEGER NOT NULL,
-	username VARCHAR(50) NOT NULL,
-	date_time DATETIME NOT NULL, 
-	FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question),
-	FOREIGN KEY(username) REFERENCES Users(username)
+    ID_Answer INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    description MEDIUMTEXT NOT NULL,
+    correct BOOLEAN NOT NULL,
+    ID_Question INTEGER NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    date_time DATETIME NOT NULL, 
+    FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question),
+    FOREIGN KEY(username) REFERENCES Users(username)
 );
 CREATE TABLE Files(
 	ID_File INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -54,3 +54,6 @@ INSERT INTO Matters(name, sect) VALUES ("Matematica","5°"),("Lingua e letteratu
 INSERT INTO Questions(title,description,username,name,sect,date_time) VALUES 
 ("TEST","descrizione del test. descrizione di esempio","bel24623","Lingua e letteratura italiana","5°",NOW());
   
+INSERT INTO Answers(description,correct,ID_question,username,date_time) VALUES ("risposta test",false,2,"bel24623",NOW()),
+("risposta test",false,1,"bel24623",NOW()),("risposta test",false,3,"bel24623",NOW()),
+("risposta test",false,4,"bel24623",NOW()),("risposta test",false,2,"bel24623",NOW()),("risposta test",false,2,"bel24623",NOW());
