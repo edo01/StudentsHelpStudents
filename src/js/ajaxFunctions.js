@@ -7,6 +7,7 @@ function loadLogin(error){
             //history.pushState(null,null,"access.php?page=login");
             if(error){
                 document.getElementById("error").style.visibility = "visible";
+                document.body.id  = "login";
             }
         }
     };
@@ -19,6 +20,7 @@ function loadSignup(error, type){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.body.innerHTML = this.responseText;
+            document.body.id  = "register";
             //history.pushState(null,null,"access.php?page=signup");
             if(error){
                 if(type=="email"){
@@ -64,6 +66,7 @@ function loadMyProfile(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("page").innerHTML = this.responseText;
+                document.body.id = "profile";
         }
     }
     xhttp.send();
@@ -73,6 +76,7 @@ function loadExplore(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("page").innerHTML = this.responseText;
+            document.body.id = "explore";
             loadQuestions('Lingua e letteratura italiana','5°');
         }
     };
@@ -84,8 +88,13 @@ function loadQuestions(matter,sect){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("questions_box").innerHTML = this.responseText;
+            
         }
     };
     xhttp.open("GET","questions.php?matter="+ matter +"&sect="+sect, true);
     xhttp.send();
+}
+
+function loadQuestion(id){
+    
 }

@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	if(!isset($_SESSION['logged_in']) || $_SESSION["logged_in"]== false){
-	header("location: login.php");
+	header("location: home.php");
 	}	
 ?>
 <html>
@@ -17,13 +17,13 @@
         <script type="text/javascript" src="js/tools.js"></script>
     </head>
 
-    <body onload="loadMyProfile()">
+    <body onload="loadMyProfile()" id="profile">
         <div style="text-align: center;">
             <nav style="background: rgba(30, 144, 255, 1); ">
                 <ul class="menu" style="display: inline-block;">
                     <li><a onclick="loadExplore()">Esplora</a></li>
                     <li><a onclick="loadMyProfile()">La mia scheda</a></li>
-                    <li><a onclick="loadMyQuestion()'">Le mia domande</a></li>
+                    <li><a onclick="loadMyQuestion()'">Le mie domande</a></li>
                 </ul>
             </nav>
         </div>

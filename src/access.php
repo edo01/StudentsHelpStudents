@@ -80,5 +80,5 @@
         <script type="text/javascript" src="js/ajaxFunctions.js"></script>
         <script type="text/javascript" src="js/tools.js"></script>
     </head>
-    <body id="login" onload="<?php echo $page_function;?>"></body>
+    <body onload="<?php echo $page_function;?>"></body>
 </html>

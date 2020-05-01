@@ -11,7 +11,7 @@ include 'local.php';
 
 class DbHandler{
     
-    
+    // mysqli_real_escape_string
     function connect(){
         $mysqli = new mysqli($GLOBALS["local_host"],$GLOBALS["local_username"],
                 $GLOBALS["local_password"],$GLOBALS["local_database"]);

@@ -126,7 +126,7 @@ ul.tm-home-list:not(.browser-default) {
 }
 
 #register {
-  background-image: url(../img/input-bg-01.jpg);
+  background-image: url(../img/register.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -141,7 +141,7 @@ ul.tm-home-list:not(.browser-default) {
 }
 
 #login {
-  background-image: url(../img/input-bg-01.jpg);
+  background-image: url(../img/login.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

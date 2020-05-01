@@ -417,7 +417,5 @@
         ?>
     </ul>
 </nav>
-<div id="explore">
-    <div id="questions_box"></div>
-</div>
+<div id="questions_box"></div>
     

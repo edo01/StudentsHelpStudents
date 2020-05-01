@@ -2,7 +2,7 @@
     - check the email
     - send an email to confirm 
     - check the class -->  
-<div class="container" onload="check_password();check_field('username',document.getElementById('username'));check_field('email',document.getElementById('email'));">
+<div class="container" style="padding-top:30px" >
     <div class="row tm-register-row tm-mb-35">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 tm-login-l">
             <form action="access.php" method="POST" class="tm-bg-black p-5 h-100">
@@ -51,14 +51,6 @@
         </div>
     </div>
     <footer class="row tm-mt-big mb-3">
-        <div class="col-xl-12 text-center">
-            <p class="d-inline-block tm-bg-black white-text py-2 tm-px-5">
-                Copyright &copy; 2018 Company Name 
-
-                <a rel="nofollow" href="http://www.tooplate.com/view/2105-input">Input</a> by 
-                <a rel="nofollow" href="http://tooplate.com" class="tm-footer-link">Tooplate</a>
-            </p>
-        </div>
     </footer>
 </div>
 

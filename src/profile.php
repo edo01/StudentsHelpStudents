@@ -11,7 +11,7 @@
     $class = $user["class"];
 ?>
 
-<div id="profile" class="font-weight-light">
+<div class="font-weight-light">
     <div class="container tm-container-max-800" >
         <div class="row">
             <div class="col-12">
@@ -21,8 +21,9 @@
                     <p class="tm-form-description">In questa pagina potrai consultare le tue statistiche.</p>
                 </header>     
             </div>
-            <div class="tm-bg-black tm-form-block centered" style="background-color:rgba(30, 144, 255, 0.5);">
-                <div class="row mb-4 col-md-offset-5">
+            <div class="col-6">
+            <div class="tm-bg-black tm-form-block " style="background-color:rgba(30, 144, 255, 0.5);">
+                <div class="row mb-4 ">
                     <div class="col-xl-6">
                         <div class="tm-home-left mt-3 font-weight-light">
                             <p class="tm-mb-35">username:</p>
@@ -45,6 +46,8 @@
                     </div>
                  </div>
             </div>
+            </div>
+            <div class="col-6">
             <div class="tm-bg-black tm-form-block" style="background-color: rgba(30, 144, 255, 0.5);"> 
                 <div class="row mb-4">
                     <div class="col-xl-6">
@@ -69,12 +72,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <footer class="row tm-mt-big mb-3">
-            <div class="col-xl-12">
-            
             </div>
-        </footer>
+        </div>
+        <footer class="row tm-mt-big mb-3"></footer>
     </div>
 
     <script src="js/jquery-3.2.1.slim.min.js"></script>
