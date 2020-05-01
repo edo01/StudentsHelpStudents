@@ -1,4 +1,4 @@
-<div class="container" style="padding-top: 30px;">
+<div class="container">
     <div class="row tm-register-row tm-mb-35" >
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 tm-login-l" >
             <form action="access.php" method="POST" class="tm-bg-black p-5 h-100">
@@ -26,6 +26,8 @@
             <a onclick="loadSignup()" class="waves-effect btn-large btn-large-white px-4 black-text rounded-0">Non sei registrato?</a>
         </div>
     </div>
+    <footer class="row tm-mt-big mb-3">
+    </footer>
 </div>
 <script src="js/jquery-3.2.1.slim.min.js"></script>
 <script src="js/materialize.min.js"></script>

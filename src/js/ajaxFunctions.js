@@ -5,9 +5,9 @@ function loadLogin(error){
         if (this.readyState == 4 && this.status == 200) {
             document.body.innerHTML = this.responseText;
             //history.pushState(null,null,"access.php?page=login");
+            document.body.id  = "login";
             if(error){
                 document.getElementById("error").style.visibility = "visible";
-                document.body.id  = "login";
             }
         }
     };

@@ -23,7 +23,9 @@
                 <ul class="menu" style="display: inline-block;">
                     <li><a onclick="loadExplore()">Esplora</a></li>
                     <li><a onclick="loadMyProfile()">La mia scheda</a></li>
-                    <li><a onclick="loadMyQuestion()'">Le mie domande</a></li>
+                    <li><a onclick="loadMyQuestions()'">Le mie domande</a></li>
+                    <li><a onclick="loadClassification()'">Classifica</a></li>
+                    <li><a href="home.php?logout=True">logout <?php echo $_SESSION["username"];?></a></li>
                 </ul>
             </nav>
         </div>
