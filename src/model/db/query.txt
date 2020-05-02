@@ -1,36 +1,40 @@
 Selezionare:
-1. La password dell'utente 
+1. La password dell'utente dato username
 SELECT password FROM Users WHERE username = '$username'
 
-2. Username che sono in utilizzo
+2. Username che sono in utilizzo data field(l'email o l'username)
 SELECT username FROM Users WHERE $field = '$value'
 
-3. Nome, cognome, email e classe di tutti gli utenti
+3. Nome, cognome, email e classe di tutti gli utenti dato username
 SELECT name,surname,email,class FROM Users WHERE username = '$username'
 
-4. Sezioni che ci sono per ogni materia
+4. Tutte le sezioni che ci sono per ogni materia
 SELECT sect FROM Matters GROUP BY sect
 
-5. Nome di tutte le sezioni
+5. Nome di tutte le sezioni data la sezione
 SELECT name FROM Matters WHERE sect='$section'
 
-6. Titolo, descrizione, data della domanda e il numero della domanda per ogni materia in ordine di tempo
+6. Titolo, descrizione, data della domanda e il numero della domanda per ogni materia in ordine di tempo decrescente data la sezione e la materia
 SELECT title,description,date_time,ID_question FROM 
-"Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC
+    Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC
 
-7. Il numero di tutti gli utenti che hanno risposto correttamente alla domanda
+7. Il numero di risposte corrette dall'utente 
 SELECT count(ID_answer) as right_answers FROM "
-    "Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true
+    Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true
 
-8. Descrizione, data e risultato della risposta delle risposte alla domanda in ordine di tempo
+8. Descrizione, data e correttezza delle risposte, ordinate nel tempo in maniera decrescente, data la domanda
 SELECT a.description,correct,a.date_time FROM 
-Answers AS a INNER JOIN Questions AS q ON a.ID_question = q.ID_question 
+    Answers AS a INNER JOIN Questions AS q ON a.ID_question = q.ID_question 
     WHERE a.ID_question = '$ID_question' ORDER BY a.date_time DESC
 
-9. Titolo, descrizione, data e il numero della domanda per ogni materia di ogni sezione in ordine di tempo
+9. Titolo, descrizione, data e id delle domanda che iniziano per $alias, di una certa sezione e materia, in ordine di tempo
 SELECT title,description,date_time,ID_question FROM 
     Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' 
     AND q.title LIKE '%$alias%' ORDER BY date_time DESC
 
-10. Titolo, descrizione e data delle domande di un utente
+10. Titolo, descrizione e data di una domanda
 SELECT title,description,date_time FROM Questions AS q WHERE q.ID_question = '$id'
+
+11. Titolo,descrizione,data e id di una domanda fatta da un user
+SELECT title,description,date_time,ID_question FROM Questions AS q
+    WHERE username = '$username' ORDER BY date_time DESC
