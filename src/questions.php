@@ -4,10 +4,13 @@
     include 'model/dbHandler.php';
     $dbhandler = new DbHandler();
     if(!isset($_GET["search"])){
+        //without search camp(this happens when it's loaded the page explore)
         $questions = $dbhandler->getQuestionsFromMatter($matter, $sect);
     }else{
+        //with the camp "search"(this happens when the user types something in the search bar)
         $questions = $dbhandler->getQuestionsStartingWith($matter, $sect, $_GET["search"]);
     }
+    //displays all the questions
     foreach($questions as &$question):
     ?>
 <div class="card" style="width: 100%;">

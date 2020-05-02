@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
     session_start();
+    //if the logout has been clicked, destroys the session
     if(isset($_GET["logout"]) && $_GET["logout"]){
         if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true){
             session_destroy();
@@ -13,6 +14,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ShS</title>
   
+    <link rel="icon" href="favicon.ico">
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/materialize.min.css">

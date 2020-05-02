@@ -52,12 +52,4 @@
     </div>
     <footer class="row tm-mt-big mb-3">
     </footer>
-</div>
-
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/materialize.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('select').formSelect();
-    });
-</script>     
+</div> 

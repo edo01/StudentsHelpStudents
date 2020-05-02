@@ -9,7 +9,7 @@
                     <input placeholder="Password" id="password" name="passwordl" required type="password" class="validate">
                 </div>
                 <div class="tm-flex-lr">
-                    <a href="#" class="white-text small">Forgot Password?</a>
+                    <a href="#" onclick="alert('Hai già dimenticato la password? Non avevamo previsto potesse esistere qualcuno con la memoria così corta...')" class="white-text small">Forgot Password?</a>
                     <button type="submit" name="submit" value="login" class="waves-effect btn-large btn-large-white px-4 black-text rounded-0">Accedi</button>
                 </div>
             </form>
@@ -29,10 +29,3 @@
     <footer class="row tm-mt-big mb-3">
     </footer>
 </div>
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/materialize.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('select').formSelect();
-    });
-</script>     

@@ -1,7 +1,11 @@
 <?php
+    /*
+     * This page displays a question and its answers
+     */
     $id = $_GET['id'];
     include 'model/dbHandler.php';
     $dbhandler = new DbHandler();
+    //gets the question from the db
     $question = $dbhandler->getQuestionsById($id);
     //attention!! you are assuming that the question exists
     ?>
@@ -23,12 +27,14 @@
     </div>
     <div id="answer_panel">
     <?php
+    //gets all the answers of the questions
     $answers = $dbhandler->getAnswersFromQuestion($id);
     ?>
         <div style="width:100%;background-color: rgba(30, 144, 255, 0.7);">
             <h5 style="padding:10px;"><?php echo count($answers)?> risposte:</h5>
         </div> 
    <?php
+   //load all the answers
     foreach($answers as &$answer):
     ?>
         <div class="card" style="width: 100%;">

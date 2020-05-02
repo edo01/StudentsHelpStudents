@@ -1,4 +1,5 @@
 <?php
+    //load the answer form
     $id = $_GET['id'];
 ?>
 <div style="width:100%;background-color: rgba(30, 144, 255, 0.7);">

@@ -3,6 +3,7 @@
     session_start();
     include 'model/dbHandler.php';
     $dbhandler = new DbHandler();
+    //load all the section from the database
     $sections = $dbhandler->getAllSections();
 ?>
 <form id="answer-form" action="index.php?newQuestion=true" method="POST">
@@ -32,19 +33,25 @@
                     <div class="col-3 form-group">
                         <p class="tm-mb-35" style="margin-bottom: 10px">Seleziona la materia</p>
                         <select class="form-control" name="section-select">
-                          <?php
-                            foreach ($sections as &$arr) {
-                                foreach($arr as &$section){
-                                    $men = "";
-                                    $matters = $dbhandler->getMattersFromSection($section);
-                                    echo "<optgroup name=\"$section\" label=\"$section\">$men";
-                                    foreach ($matters as &$arr2){
-                                        $men .= "<option value='$section-$arr2[0]'>$arr2[0]</option>";                       
-                                    }
-                                    echo "$men.</optgroup>";  
-                                }
-                            }
-                        ?>
+<?php
+  /* populate the select with the sections
+   * and the matters.
+   */
+  //iterates the results of the array
+  foreach ($sections as &$arr) {
+      //iterates the section
+      foreach($arr as &$section){
+          $men = "";
+          $matters = $dbhandler->getMattersFromSection($section);
+          echo "<optgroup name=\"$section\" label=\"$section\">$men";
+          //iterates the matters
+          foreach ($matters as &$matter){
+              $men .= "<option value='$section-$matter[0]'>$matter[0]</option>";                       
+          }
+          echo "$men.</optgroup>";  
+      }
+  }
+?>
                         </select>
                     </div>
                 </div>
@@ -61,13 +68,14 @@
         </div>
         <div class="row" style=" width:100%;background-color: rgba(255, 0, 0, 0.5);">
             <div class="col-md-6">
-                <h5 style="margin-top: 10px">Le tue precedenti domande:</h5>
+                <h5 style="margin-top: 10px">Le tue domande precedenti:</h5>
             </div>
         </div> 
         <div>
 <?php
-$questions = $dbhandler->getQuestionsByUser($_SESSION["username"]);
-foreach($questions as &$question):
+    $questions = $dbhandler->getQuestionsByUser($_SESSION["username"]);
+    //load all the questions of the user
+    foreach($questions as &$question):
 ?>
             <div class="card" style="width: 100%;">
             <div class="card-body">

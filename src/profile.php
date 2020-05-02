@@ -3,8 +3,10 @@
     include 'model/dbHandler.php';
     
     $dbhandler = new DbHandler();
-    $user = $dbhandler->getUser($_SESSION["username"])
-;    $n_right = $dbhandler->getRightAnswersOfUser($_SESSION["username"]);
+    //gets all user's informations
+    $user = $dbhandler->getUser($_SESSION["username"]);
+    //it'll be allways zero because it's not implemented
+    $n_right = $dbhandler->getRightAnswersOfUser($_SESSION["username"]);
     $name = $user["name"];
     $surname = $user["surname"];
     $email = $user["email"];

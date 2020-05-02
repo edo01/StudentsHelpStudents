@@ -137,6 +137,10 @@ class DbHandler{
         return $user;
     }
     
+    /**
+     * 
+     * @return array example:Array ( [0] => Array ( [0] => 5° ) [1] => Array ( [0] => 5° informatica ) ) 
+     */
     function getAllSections(){
         $mysqli = DbHandler::connect();
         $insertion = "SELECT sect FROM Matters GROUP BY sect";
@@ -147,6 +151,7 @@ class DbHandler{
         DbHandler::close($mysqli);
 	$sections = $result->fetch_all(MYSQLI_NUM);
         return $sections;
+        
     }
     
     function getMattersFromSection($section){
