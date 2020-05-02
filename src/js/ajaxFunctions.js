@@ -139,9 +139,22 @@ function loadAnswerForm(id){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("answer_panel").innerHTML = this.responseText;
+            document.getElementById("answer_aerea").focus();
             document.getElementById("answer-btn").style.display = "none";
+            
         }
     };
     xhttp.open("GET","answerForm.php?id="+ id, true);
+    xhttp.send();
+}
+
+function loadMyQuestions(){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("page").innerHTML = this.responseText;
+            document.body.id = "questions";
+        }
+    };
+    xhttp.open("GET","myQuestionsPanel.php", true);
     xhttp.send();
 }

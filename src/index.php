@@ -9,8 +9,17 @@
             $answer = $_POST["answer"];
             $id = $_POST["ID_question"];
             $dbHandler = new DbHandler();
-            //$dbHandler->insertAnswer($answer, $id, $_SESSION["username"]);
+            $dbHandler->insertAnswer($answer, $id, $_SESSION["username"]);
             $request = "loadExplore();";
+        }
+        else if(isset($_GET["newQuestion"]) && $_GET["newQuestion"]){
+            $title = $_POST["question-title"];
+            $description = $_POST["question-description"];
+            $sect = explode('-',$_POST["section-select"])[0];
+            $matter = explode('-',$_POST["section-select"])[1];
+            $dbHandler = new DbHandler();
+            $dbHandler->insertQuestion($title, $description,$matter,$sect, $_SESSION["username"]);
+            $request = "loadMyQuestions();";
         }
 ?>
 <html>
@@ -34,7 +43,7 @@
             <nav style="background: rgba(30, 144, 255, 1); ">
                 <ul class="menu" style="display: inline-block;">
                     <li><a onclick="loadExplore()">Esplora</a></li>
-                    <li><a onclick="loadMyQuestions()'">Le mie domande</a></li>
+                    <li><a onclick="loadMyQuestions()">Le mie domande</a></li>
                     <li><a onclick="loadMyProfile()">La mia scheda</a></li>
                     <li><a onclick="loadClassification()">Classifica</a></li>
                     <li><a href="home.php?logout=True">logout</a></li>
