@@ -1,9 +1,36 @@
 Selezionare:
 1. La password dell'utente 
+SELECT password FROM Users WHERE username = '$username'
+
 2. Username che sono in utilizzo
+SELECT username FROM Users WHERE $field = '$value'
+
 3. Nome, cognome, email e classe di tutti gli utenti
+SELECT name,surname,email,class FROM Users WHERE username = '$username'
+
 4. Sezioni che ci sono per ogni materia
+SELECT sect FROM Matters GROUP BY sect
+
 5. Nome di tutte le sezioni
-6. Titolo, descrizione, data della domanda per ogni materia
-7. Il numero degli utenti che hanno risposto correttamente alla domanda
-8. Descrizione, data e risultato della risposta delle risposte alla domanda
+SELECT name FROM Matters WHERE sect='$section'
+
+6. Titolo, descrizione, data della domanda e il numero della domanda per ogni materia in ordine di tempo
+SELECT title,description,date_time,ID_question FROM "
+                . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC
+
+7. Il numero di tutti gli utenti che hanno risposto correttamente alla domanda
+SELECT count(ID_answer) as right_answers FROM "
+                . "Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true
+
+8. Descrizione, data e risultato della risposta delle risposte alla domanda in ordine di tempo
+SELECT a.description,correct,a.date_time FROM 
+                . Answers AS a INNER JOIN Questions AS q ON a.ID_question = q.ID_question 
+                . WHERE a.ID_question = '$ID_question' ORDER BY a.date_time DESC
+
+9. Titolo, descrizione, data e il numero della domanda per ogni materia di ogni sezione in ordine di tempo
+SELECT title,description,date_time,ID_question FROM 
+                . Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' AND q.title LIKE '%$alias%' ORDER BY date_time DESC
+
+10. Titolo, descrizione e data delle domande di un utente
+SELECT title,description,date_time FROM 
+                . Questions AS q WHERE q.ID_question = '$id'
