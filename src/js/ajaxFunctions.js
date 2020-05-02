@@ -141,7 +141,6 @@ function loadAnswerForm(id){
             document.getElementById("answer_panel").innerHTML = this.responseText;
             document.getElementById("answer_aerea").focus();
             document.getElementById("answer-btn").style.display = "none";
-            
         }
     };
     xhttp.open("GET","answerForm.php?id="+ id, true);
@@ -157,4 +156,24 @@ function loadMyQuestions(){
     };
     xhttp.open("GET","myQuestionsPanel.php", true);
     xhttp.send();
+}
+
+function loadQuestion_s(id){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("page").innerHTML = this.responseText;
+            document.body.id = "explore";
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("questions_box").innerHTML = this.responseText;
+                    document.getElementById("src-bar-exp").style.display = "none";
+                    document.getElementById("answer-btn").style.display = "block";
+                }
+            };
+            xhttp.open("GET","question.php?id="+ id, true);
+            xhttp.send();
+        }
+    };
+    xhttp.open("GET","explore.php", true);
+    xhttp.send(); 
 }

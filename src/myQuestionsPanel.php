@@ -74,7 +74,7 @@ foreach($questions as &$question):
                <h5 class="card-title" style="color:red;"><?php echo $question[0]?></h5>
                <p class="card-text" style="color:black"><?php echo $question[1]?></p>
                <p class="card-text" style="color:black"><?php echo $question[2]?></p>
-               <a onclick="loadQuestion('<?php echo $question[3]?>')" class="btn btn-primary" style = "background:#1e90ff">visualizza</a>
+               <a onclick="loadQuestion_s('<?php echo $question[3]?>')" class="btn btn-primary" style = "background:#1e90ff">visualizza</a>
             </div>
             </div>
             <br>

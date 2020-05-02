@@ -10,7 +10,7 @@
             $id = $_POST["ID_question"];
             $dbHandler = new DbHandler();
             $dbHandler->insertAnswer($answer, $id, $_SESSION["username"]);
-            $request = "loadExplore();";
+            $request = "loadQuestion_s('$id')";
         }
         else if(isset($_GET["newQuestion"]) && $_GET["newQuestion"]){
             $title = $_POST["question-title"];
@@ -19,7 +19,7 @@
             $matter = explode('-',$_POST["section-select"])[1];
             $dbHandler = new DbHandler();
             $dbHandler->insertQuestion($title, $description,$matter,$sect, $_SESSION["username"]);
-            $request = "loadMyQuestions();";
+            $request = "loadMyQuestions()";
         }
 ?>
 <html>

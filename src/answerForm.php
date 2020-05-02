@@ -16,7 +16,7 @@
         <div class="form-group">
                 <div style="width:100%;background-color: rgba(30, 144, 255, 0.7);">
                     <h5 style="padding:10px;">Carica un file:</h5>
-                    <input type="file" style = "background:#ff0000" class="form-control-file float-right" id="file-loader" name="file">
+                    <input type="file"  class="form-control-file float-right" id="file-loader" name="file">
                 </div>
         </div>
     </div>
