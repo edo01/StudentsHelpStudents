@@ -9,9 +9,16 @@
  */
 include 'local.php';
 
+/**
+ *                  DbHandler.php
+ * THIS PAGE IS USED TO HANDLE THE DATABASE.
+ */
 class DbHandler{
     
-    // mysqli_real_escape_string
+    /**
+     * Open the connection with the database
+     * @return mysqli 
+     */
     function connect(){
         $mysqli = new mysqli($GLOBALS["local_host"],$GLOBALS["local_username"],
                 $GLOBALS["local_password"],$GLOBALS["local_database"]);
@@ -23,10 +30,24 @@ class DbHandler{
         return $mysqli;
     }
 
+    /**
+     * Closes the connection
+     * @param type $mysqli
+     */
     private function close($mysqli){
         $mysqli->close();
     }
 
+    /**
+     * Insert a new user inside the database
+     * @param string $name
+     * @param string $surname
+     * @param string $username
+     * @param string $email
+     * @param string $class
+     * @param string $password
+     * @return boolean
+     */
     function insertNewUser($name, $surname, $username, $email, $class, $password){
 	$mysqli = DbHandler::connect();
         $name = $mysqli->real_escape_string($name);
@@ -45,8 +66,13 @@ class DbHandler{
         return true;
     }
 
-    /*
-     * not updated
+    /**
+     * Insert a new question inside the database.
+     * @param string $title
+     * @param string $description
+     * @param string $matter
+     * @param string $section
+     * @param string $username
      */
     function insertQuestion($title, $description, $matter, $section, $username){
         $mysqli = DbHandler::connect();
@@ -63,6 +89,12 @@ class DbHandler{
         DbHandler::close($mysqli);
     }
 
+    /**
+     * Insert an answer inside the database.
+     * @param string $description
+     * @param int $ID_question
+     * @param string $username
+     */
     function insertAnswer($description, $ID_question, $username){
         $mysqli = DbHandler::connect();
         $ID_question = $mysqli->real_escape_string($ID_question);
@@ -76,7 +108,13 @@ class DbHandler{
         DbHandler::close($mysqli);
     }
 
-    //take a look here
+    /**
+     * Insert a file inside the database.
+     * @param string $content
+     * @param string $extention
+     * @param int $ID_answer
+     * @param int $ID_question
+     */
     function insertFile($content, $extention, $ID_answer, $ID_question){
         $mysqli = DbHandler::connect();
         $insertion = "INSERT INTO Files(content, extention, ID_answer, ID_question)"
@@ -87,6 +125,12 @@ class DbHandler{
         DbHandler::close($mysqli);
     }
 
+    /**
+     * Controls if the username and the password are correct.
+     * @param string $username
+     * @param string $password
+     * @return boolean if the username and the password are correct
+     */
     function login($username, $password){
 	$mysqli = DbHandler::connect();
         $username = $mysqli->real_escape_string($username);
@@ -102,6 +146,12 @@ class DbHandler{
         }else{ return false;}
     }
     
+    /**
+     * Controls if the users already exits.
+     * @param string $field (can be 'email' or 'username')
+     * @param string $value
+     * @return boolean if the user exists
+     */
     function usersExists($field, $value){
         $mysqli = DbHandler::connect();
         $field = $mysqli->real_escape_string($field);
@@ -119,6 +169,11 @@ class DbHandler{
         }else{ return false;}
     }
     
+    /**
+     * Gets the user by username.
+     * @param string $username
+     * @return assoc_array user
+     */
     function getUser($username){
         $mysqli = DbHandler::connect();
         $username = $mysqli->real_escape_string($username);
@@ -138,7 +193,7 @@ class DbHandler{
     }
     
     /**
-     * 
+     * Gets all the sections in the db.
      * @return array example:Array ( [0] => Array ( [0] => 5° ) [1] => Array ( [0] => 5° informatica ) ) 
      */
     function getAllSections(){
@@ -154,6 +209,11 @@ class DbHandler{
         
     }
     
+    /**
+     * Gets all the matters of a given section.
+     * @param string $section
+     * @return array with the name of the matters
+     */
     function getMattersFromSection($section){
         $mysqli = DbHandler::connect();
         $section = $mysqli->real_escape_string($section);
@@ -167,6 +227,12 @@ class DbHandler{
         return $matters;
     }
     
+    /**
+     * Gets all the questions of a given section and matter.
+     * @param string $matter
+     * @param string $sect
+     * @return array with the questions
+     */
     function getQuestionsFromMatter($matter,$sect){
         $mysqli = DbHandler::connect();
         $matter = $mysqli->real_escape_string($matter);
@@ -182,6 +248,11 @@ class DbHandler{
         return $questions;
     }
     
+    /**
+     * Returns the number of right answer of an user.
+     * @param string $username
+     * @return int the number of right answer of an user
+     */
     function getRightAnswersOfUser($username){
         $mysqli = DbHandler::connect();
         $username = $mysqli->real_escape_string($username);
@@ -196,6 +267,11 @@ class DbHandler{
         return $n["right_answers"];
     }
     
+    /**
+     * Returns all the answers of a question.
+     * @param int $ID_question
+     * @return type
+     */
     function getAnswersFromQuestion($ID_question){
         $mysqli = DbHandler::connect();
         $ID_question = $mysqli->real_escape_string($ID_question);
@@ -211,6 +287,13 @@ class DbHandler{
         return $answers;
     }
     
+    /**
+     * Gets all the questions with the string "alias" inside.
+     * @param string $matter
+     * @param string $sect
+     * @param string $alias
+     * @return array of the questions
+     */
     function getQuestionsStartingWith($matter,$sect,$alias){
         $mysqli = DbHandler::connect();
         $matter = $mysqli->real_escape_string($matter);
@@ -220,7 +303,7 @@ class DbHandler{
         $insertion = "SELECT title,description,date_time,ID_question FROM "
                 . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' AND q.title LIKE '%$alias%' ORDER BY date_time DESC";
         $result = $mysqli->query($insertion);
-        if($result){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -228,6 +311,11 @@ class DbHandler{
         return $questions;
     }
     
+    /**
+     * Gives the question with the given.
+     * @param int $id
+     * @return array_assoc with the camps of the question
+     */
     function getQuestionsById($id){
         $mysqli = DbHandler::connect();
         $id = $mysqli->real_escape_string($id);
@@ -242,6 +330,11 @@ class DbHandler{
         return $question;
     }
     
+    /**
+     * Gets all the question of an user.
+     * @param string $username
+     * @return array of the questions
+     */
     function getQuestionsByUser($username){
         $mysqli = DbHandler::connect();
         $username = $mysqli->real_escape_string($username);
@@ -252,10 +345,15 @@ class DbHandler{
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
-	$questions = $result->fetch_all(MYSQLI_NUM);
+	$questions = $result->fetch_all(MYSQLI_NUM); 
         return $questions;
     }
     
+    /**
+     * Remove a question.
+     * @param int $id
+     * @return if the question was remove
+     */
     function removeQuestion($id){
         $mysqli = DbHandler::connect();
         $id = $mysqli->real_escape_string($id);
@@ -265,7 +363,6 @@ class DbHandler{
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
-        return $questions;
+        return $result;
     }
-    
 }

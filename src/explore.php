@@ -9,7 +9,7 @@
 <nav class="nav">
     <label for="nav-toggle" class="nav-toggle" onclick></label>
     <h2 class="logo"> 
-        <a href="www.ioeweb.it/">Scegli l'argomento</a> 
+        <a>Scegli l'argomento</a> 
     </h2>
     <ul id="sections">
         <?php
