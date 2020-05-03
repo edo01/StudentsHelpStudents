@@ -31,21 +31,21 @@ CREATE TABLE Answers(
     ID_Question INTEGER NOT NULL,
     username VARCHAR(50) NOT NULL,
     date_time DATETIME NOT NULL, 
-    FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question),
+    FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question) ON DELETE CASCADE,
     FOREIGN KEY(username) REFERENCES Users(username)
 );
 CREATE TABLE Files(
-	ID_File INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	content MEDIUMBLOB NOT NULL,
-	extension VARCHAR(10),
-	ID_Question INTEGER NOT NULL,
-	Id_Answer INTEGER NOT NULL,
-	FOREIGN KEY(ID_Answer) REFERENCES Answers(ID_Answer),
-	FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question)
+    ID_File INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    content MEDIUMBLOB NOT NULL,
+    extension VARCHAR(10),
+    ID_Question INTEGER NOT NULL,
+    Id_Answer INTEGER NOT NULL,
+    FOREIGN KEY(ID_Answer) REFERENCES Answers(ID_Answer) ON DELETE CASCADE,
+    FOREIGN KEY(ID_Question) REFERENCES Questions(ID_Question) ON DELETE CASCADE
 );
 
 INSERT INTO Matters(name, sect) VALUES ("Matematica","5°"),("Lingua e letteratura italiana","5°"),
-("Storia, cittadinanza e costitutzione","5°"),("Lingua inglese","5°"),("Informatica","5° informatica"),
+("Storia, cittadinanza e costituzione","5°"),("Lingua inglese","5°"),("Informatica","5° informatica"),
 ("Sistemi e reti","5° informatica"),("Scienze motorie e sportive","5°"),
 ("Religione cattolica o attività alternative","5°"),
 ("Tecnologie e progettazione di sistemi informatici e di telecomunicazioni","5° informatica"),

@@ -93,7 +93,7 @@ class DbHandler{
         $insertion = "SELECT password FROM Users WHERE username = '$username'";
         $result = $mysqli->query($insertion);
 	$hash = $result->fetch_array(MYSQLI_NUM);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossibile executing this command");
 	}
         DbHandler::close($mysqli);
@@ -110,7 +110,7 @@ class DbHandler{
         $insertion = "SELECT username FROM Users WHERE $field = '$value'";
         $result = $mysqli->query($insertion);
 	$n = $result->num_rows;
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossibile executing this command");
 	}
         DbHandler::close($mysqli);
@@ -125,7 +125,7 @@ class DbHandler{
         $insertion = "SELECT name,surname,email,class FROM Users WHERE username = '$username'";
         
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossibile executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -145,7 +145,7 @@ class DbHandler{
         $mysqli = DbHandler::connect();
         $insertion = "SELECT sect FROM Matters GROUP BY sect";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossibile executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -159,7 +159,7 @@ class DbHandler{
         $section = $mysqli->real_escape_string($section);
         $insertion = "SELECT name FROM Matters WHERE sect='$section'";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossibile executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -174,7 +174,7 @@ class DbHandler{
         $insertion = "SELECT title,description,date_time,ID_question FROM "
                 . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' ORDER BY date_time DESC";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -188,7 +188,7 @@ class DbHandler{
         $insertion = "SELECT count(ID_answer) as right_answers FROM "
                 . "Users AS u,Answers AS a WHERE a.username = '$username' AND correct = true";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -203,7 +203,7 @@ class DbHandler{
                 . "Answers AS a INNER JOIN Questions AS q ON a.ID_question = q.ID_question "
                 . "WHERE a.ID_question = '$ID_question' ORDER BY a.date_time DESC";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -220,7 +220,7 @@ class DbHandler{
         $insertion = "SELECT title,description,date_time,ID_question FROM "
                 . "Questions AS q WHERE q.name = '$matter' AND q.sect = '$sect' AND q.title LIKE '%$alias%' ORDER BY date_time DESC";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if($result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -234,7 +234,7 @@ class DbHandler{
         $insertion = "SELECT title,description,date_time FROM "
                 . "Questions AS q WHERE q.ID_question = '$id'";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
@@ -245,14 +245,26 @@ class DbHandler{
     function getQuestionsByUser($username){
         $mysqli = DbHandler::connect();
         $username = $mysqli->real_escape_string($username);
-        $insertion = "SELECT title,description,date_time,ID_question FROM "
+        $insertion = "SELECT title,description,date_time,ID_question, name, sect FROM "
                 . "Questions AS q WHERE username = '$username' ORDER BY date_time DESC";
         $result = $mysqli->query($insertion);
-        if(!$mysqli->query($insertion)){
+        if(!$result){
             print("Error: impossible executing this command:".$mysqli->error);
 	}
         DbHandler::close($mysqli);
 	$questions = $result->fetch_all(MYSQLI_NUM);
+        return $questions;
+    }
+    
+    function removeQuestion($id){
+        $mysqli = DbHandler::connect();
+        $id = $mysqli->real_escape_string($id);
+        $insertion = "DELETE FROM Questions WHERE ID_question= '$id'";
+        $result = $mysqli->query($insertion);
+        if(!$result){
+            print("Error: impossible executing this command:".$mysqli->error);
+	}
+        DbHandler::close($mysqli);
         return $questions;
     }
     

@@ -34,7 +34,7 @@
             <h5 style="padding:10px;"><?php echo count($answers)?> risposte:</h5>
         </div> 
    <?php
-   //load all the answers
+   //displays all the answers
     foreach($answers as &$answer):
     ?>
         <div class="card" style="width: 100%;">

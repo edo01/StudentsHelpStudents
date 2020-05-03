@@ -5,6 +5,9 @@
     $dbhandler = new DbHandler();
     //load all the section from the database
     $sections = $dbhandler->getAllSections();
+    if(isset($_GET["remove"]) && $_GET["remove"]){
+        $dbhandler->removeQuestion($_GET["id"]);
+    }
 ?>
 <form id="answer-form" action="index.php?newQuestion=true" method="POST">
     <div class="container">
@@ -80,9 +83,9 @@
             <div class="card" style="width: 100%;">
             <div class="card-body">
                <h5 class="card-title" style="color:red;"><?php echo $question[0]?></h5>
-               <p class="card-text" style="color:black"><?php echo $question[1]?></p>
-               <p class="card-text" style="color:black"><?php echo $question[2]?></p>
-               <a onclick="loadQuestion_s('<?php echo $question[3]?>')" class="btn btn-primary" style = "background:#1e90ff">visualizza</a>
+               <p class="card-text" style="color:black">Argomento: <?php echo $question[5]?> - <?php echo $question[4]?></p>
+               <p class="card-text" style="color:black">Inserita il:<?php echo $question[2]?></p>
+               <a onclick="loadQuestion_s('<?php echo $question[3]?>')" class="btn btn-primary" style = "background:#1e90ff">visualizza</a>&nbsp;<a onclick="removeQuestion('<?php echo $question[3]?>')" class="btn btn-primary" style = "background:#ff0000">elimina</a>
             </div>
             </div>
             <br>

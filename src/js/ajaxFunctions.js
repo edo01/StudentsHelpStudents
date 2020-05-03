@@ -177,3 +177,14 @@ function loadQuestion_s(id){
     xhttp.open("GET","explore.php", true);
     xhttp.send(); 
 }
+
+function removeQuestion(id){
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("page").innerHTML = this.responseText;
+            document.body.id = "questions";
+        }
+    };
+    xhttp.open("GET","myQuestionsPanel.php?remove=true&id="+id, true);
+    xhttp.send();
+}
